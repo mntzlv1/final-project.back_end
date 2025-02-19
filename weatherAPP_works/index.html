@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather app</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h2>Weather</h2>
+    <input type="text" id="city" placeholder="Enter city">
+    <button onclick="getWeather()">Get Weather</button>
+    <p id="weatherResult"></p>
+    
+    <h2>Exchange Rates</h2>
+    <button onclick="getExchangeRates()">Get Exchange Rates</button>
+    <p id="exchangeResult"></p>
+
+    <h2>News</h2>
+    <button onclick="getNews()">Get News</button>
+    <div id="newsResult"></div>
+
+    <h2>Map</h2>
+    <iframe id="mapFrame" width="600" height="450"></iframe>
+
+    <script>
+        async function getWeather() {
+            const city = document.getElementById("city").value;
+            const res = await fetch(`/weather?city=${city}`);
+            const data = await res.json();
+
+            document.getElementById("weatherResult").innerHTML = `
+                <p>Temperature: ${data.temp}°C (Feels like: ${data.feelslike}°C)</p>
+                <p>Description: ${data.description} <img src="https://openweathermap.org/img/wn/${data.icon}.png"></p>
+                <p>Humidity: ${data.humidity}% | Pressure: ${data.pressure} hPa</p>
+                <p>Wind Speed: ${data.wind} m/s</p>
+                <p>Coordinates: [${data.lat}, ${data.lon}]</p>
+                <p>Country: ${data.country} (${data.countryCode}) <img src="${data.flag}" width="30"></p>
+                <p>Air Quality Index: ${data.aqi}</p>`;
+            document.getElementById("mapFrame").src = data.mapUrl;
+        }
+        async function getExchangeRates() {
+            const res = await fetch("/exchange-rates");
+            const data = await res.json();
+            document.getElementById("exchangeResult").innerText = `1 USD = ${data.rates.RUB} RUB`;
+        }
+        async function getNews() {
+            const res = await fetch("/news");
+            const articles = await res.json();
+            document.getElementById("newsResult").innerHTML = articles.map(a => `<p><a href="${a.url}" target="_blank">${a.title}</a></p>`).join("");
+        }
+    </script>
+</body>
+</html>

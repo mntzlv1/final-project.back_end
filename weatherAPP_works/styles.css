@@ -1,0 +1,95 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #eaffea;  /* Light Green Background */
+    color: #003300;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 150, 0, 0.2);
+    border: 3px solid #00cc44;
+}
+
+/* Headings */
+h2 {
+    color: #007f00;
+    font-size: 24px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+/* Input & Button */
+input {
+    width: 80%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #00cc44;
+    border-radius: 8px;
+    font-size: 16px;
+    background: white;
+    color: #003300;
+    text-align: center;
+}
+
+button {
+    background: #00e600;
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
+    margin-top: 10px;
+    box-shadow: 2px 2px 10px rgba(0, 150, 0, 0.3);
+}
+
+button:hover {
+    background: #00b300;
+    transform: scale(1.05);
+}
+
+/* Results */
+p {
+    font-size: 16px;
+    background: #f0fff0;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 12px 0;
+    border-left: 5px solid #00b300;
+    box-shadow: 0px 2px 10px rgba(0, 200, 0, 0.1);
+}
+
+/* News Section */
+#newsResult p {
+    background: none;
+}
+
+#newsResult a {
+    text-decoration: none;
+    color: #007f00;
+    font-weight: bold;
+}
+
+#newsResult a:hover {
+    color: #00b300;
+    text-decoration: underline;
+}
+
+/* Map */
+iframe {
+    margin-top: 15px;
+    border-radius: 10px;
+    border: 3px solid #00cc44;
+    box-shadow: 0px 4px 10px rgba(0, 200, 0, 0.3);
+}
