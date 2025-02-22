@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container" id="loginContainer">
+        <h2 id="formTitle">Login</h2>
+        <form id="authForm" action="/api/auth/login" method="POST">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <p id="switchText">Don't have an account? <a href="javascript:void(0)" id="switchToRegister">Register here</a></p>
+    </div>
+
+    <div class="container" id="registerFormContainer" style="display: none;">
+        <h2>Register</h2>
+        <form id="registerForm" action="/api/auth/register" method="POST">
+            <div class="form-group">
+                <label for="usernameRegister">Username:</label>
+                <input type="text" id="usernameRegister" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="emailRegister">Email:</label>
+                <input type="email" id="emailRegister" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="passwordRegister">Password:</label>
+                <input type="password" id="passwordRegister" name="password" required>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account? <a href="javascript:void(0)" id="switchToLogin">Login here</a></p>
+    </div>
+
+    <script>
+        document.getElementById('switchToRegister').addEventListener('click', function () {
+            document.getElementById('loginContainer').style.display = 'none';
+            document.getElementById('registerFormContainer').style.display = 'block';
+        });
+
+        document.getElementById('switchToLogin').addEventListener('click', function () {
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('registerFormContainer').style.display = 'none';
+        });
+
+        document.getElementById('authForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+            
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                if (response.ok && data.token) {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/index.html';
+                } else {
+                    alert('Login failed: ' + (data.message || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('An error occurred. Please try again.');
+            }
+        });
+    </script>
+</body>
+
+</html>

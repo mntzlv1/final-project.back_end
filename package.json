@@ -1,0 +1,28 @@
+{
+  "name": "project-root",
+  "version": "1.0.0",
+  "description": "A web application with various features including user authentication, QR code generation, BMI calculation, email sending, weather fetching, and blog management.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.9",
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.1",
+    "nodemailer": "^6.4.11",
+    "qrcode": "^1.5.4",
+    "semver": "^7.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "author": "Your Name",
+  "license": "MIT"
+}

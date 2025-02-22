@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bright BMI Calculator</title>
+    <link rel="stylesheet" href="css/bmi.css">
+</head>
+<body>
+    <h2>BMI Calculator</h2>
+    <form id="bmiForm">
+        <label for="weight">Enter Weight (kg):</label>
+        <input type="number" id="weight" required>
+
+        <label for="height">Enter Height (m):</label>
+        <input type="number" id="height" required step="0.01">
+
+        <button type="submit">Calculate BMI</button>
+    </form>
+
+    <p id="bmiResult"></p>
+
+    <button id="backButton" onclick="window.location.href='index.html'">Go Back</button>
+
+    <script>
+        document.getElementById('bmiForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            
+            if (weight <= 0 || height <= 0) {
+                document.getElementById('bmiResult').innerText = "Invalid input. Please enter positive values.";
+                document.getElementById('bmiResult').className = 'bad';
+                return;
+            }
+
+            const bmi = (weight / (height * height)).toFixed(2);
+            let category = '';
+
+            if (bmi < 18.5) {
+                category = 'Underweight 😟';
+                document.getElementById('bmiResult').className = 'bad';
+            } else if (bmi >= 18.5 && bmi < 25) {
+                category = 'Normal Weight 🎉';
+                document.getElementById('bmiResult').className = 'good';
+            } else if (bmi >= 25 && bmi < 30) {
+                category = 'Overweight 😐';
+                document.getElementById('bmiResult').className = 'bad';
+            } else {
+                category = 'Obese ⚠️';
+                document.getElementById('bmiResult').className = 'bad';
+            }
+
+            document.getElementById('bmiResult').innerText = `Your BMI: ${bmi} (${category})`;
+        });
+    </script>
+</body>
+</html>

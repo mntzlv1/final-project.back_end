@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link rel="stylesheet" href="css/qr.css">
+</head>
+<body>
+    <h2>🔵 QR Code Generator</h2>
+    <form id="qrForm">
+        <label for="text">Enter text or URL:</label>
+        <input type="text" id="text" placeholder="Type here..." required>
+        <button type="submit">Generate QR</button>
+    </form>
+
+    <div id="qrContainer">
+        <img id="qrImage">
+        <button id="downloadBtn">Download QR</button>
+    </div>
+
+    <button onclick="window.location.href='index.html'">🔙 Back to Home</button>
+
+    <script>
+        const qrForm = document.getElementById('qrForm');
+        const textInput = document.getElementById('text');
+        const qrImage = document.getElementById('qrImage');
+        const qrContainer = document.getElementById('qrContainer');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        async function generateQR(text) {
+            const response = await fetch(`/api/qr/generate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text })
+            });
+
+            const result = await response.json();
+            qrImage.src = result.qrCodeImageUrl;
+            qrContainer.style.display = 'block';
+            downloadBtn.style.display = 'block';
+        }
+
+        qrForm.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const text = textInput.value;
+            if (text) await generateQR(text);
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            const link = document.createElement('a');
+            link.href = qrImage.src;
+            link.download = 'QRCode.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    </script>
+</body>
+</html>
